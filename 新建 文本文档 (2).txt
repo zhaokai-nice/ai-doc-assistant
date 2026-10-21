@@ -1,0 +1,108 @@
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="你的api_key",
+    base_url="https://api.deepseek.com"
+)
+
+
+print("正在呼叫 AI...")
+response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "user", "content": "用一句话解释什么是API调用？"}
+    ]
+)
+
+print("AI 的回答是：")
+print(response.choices[0].message.content)
+
+
+
+
+
+from openai import OpenAI
+client=OpenAI(
+    api_key='你的api_key',
+    base_url='https://api.deepseek.com')
+with open('data.txt','r',encoding='utf-8')as f:
+    file_content=f.read()
+print('文件读取成功！正在发送给AI分析。。。\n')
+response=client.chat.completions.create(
+    model='deepseek-chat',
+    messages=[
+        {'role':'system','content':'你是一个专业的文档总结助手。'},
+        {'role':'user','content':f'请帮我总结以下这段文字的要点：\n\n{file_content}'}
+         ])
+print('AI总结结果：')
+print(response.choices[0].message.content)
+
+
+
+
+
+from openai import OpenAI
+client = OpenAI(
+    api_key='你的api_key',
+    base_url='https://api.deepseek.com'
+)
+messages=[]
+print('AI助手已启动（输入‘退出’结束对话）')
+while True:
+    user_input=input('\n你：')
+    if user_input=='退出':
+        print('拜拜！')
+        break
+    messages.append({'role':'user','content':user_input})
+    response=client.chat.completions.create(
+        model='deepseek-chat',
+        messages=messages
+    )
+    ai_reply=response.choices[0].message.content
+    print(f'AI:{ai_reply}')
+    messages.append({'role':'assistant','content':ai_reply})
+
+
+
+
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_community.document_loaders import TextLoader
+print('正在读取文件。。。')
+loader=TextLoader('data.txt',encoding='utf-8')
+docs=loader.load()
+file_content=docs[0].page_content
+llm=ChatOpenAI(
+    api_key='from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_community.document_loaders import TextLoader
+print('正在读取文件。。。')
+loader=TextLoader('data.txt',encoding='utf-8')
+docs=loader.load()
+file_content=docs[0].page_content
+llm=ChatOpenAI(
+    api_key='你的api_key',
+    base_url='https://api.deepseek.com',
+    model='deepseek-chat'
+)
+prompt=ChatPromptTemplate.from_messages([
+    ('system','你是一个专业的文档总结助手，请用精炼的语言提取要点。'),
+    ('user','请帮我总结以下这段文字的要点：\n\n{text}')
+    ])
+chain=prompt|llm
+print('文件读取成功，正在呼叫ai总结。。。\n')
+result=chain.invoke({'text':file_content})
+print('ai总结结果：')
+print(result.content)',
+    base_url='https://api.deepseek.com',
+    model='deepseek-chat'
+)
+prompt=ChatPromptTemplate.from_messages([
+    ('system','你是一个专业的文档总结助手，请用精炼的语言提取要点。'),
+    ('user','请帮我总结以下这段文字的要点：\n\n{text}')
+    ])
+chain=prompt|llm
+print('文件读取成功，正在呼叫ai总结。。。\n')
+result=chain.invoke({'text':file_content})
+print('ai总结结果：')
+print(result.content)
