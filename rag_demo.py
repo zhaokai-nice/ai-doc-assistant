@@ -9,7 +9,7 @@ loader=TextLoader('data.txt',encoding='utf-8')
 docs=loader.load()
 file_content=docs[0].page_content
 llm=ChatOpenAI(
-    api_key='sk-c7e265e5969c4fba8dcde57bb1463e3e',
+    api_key=os.getenv('DEEPSEEK_API_KEY'),
     base_url='https://api.deepseek.com',
     model='deepseek-chat'
 )
