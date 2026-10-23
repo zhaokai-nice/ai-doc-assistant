@@ -1,6 +1,6 @@
 # ai-doc-assistant
 My first AI project using LangChain
-# AI 文档智能总结助手 (AI Document Assistant)
+# AI 文档智能总结助手
 
 ## 📖 项目简介
 这是一个基于 Python 和 LangChain 框架开发的 AI 文档总结工具。通过调用 DeepSeek 大语言模型 API，能够读取本地文本文件，并自动提取、总结核心要点。
