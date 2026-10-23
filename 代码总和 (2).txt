@@ -2,13 +2,10 @@ import os
 from dotenv import load_dotenv
 load_dotenv
 from openai import OpenAI
-
 client = OpenAI(
     api_key=os.getenv('DEEPSEEK_API_KEY'),
     base_url="https://api.deepseek.com"
 )
-
-
 print("正在呼叫 AI...")
 response = client.chat.completions.create(
     model="deepseek-chat",
@@ -118,3 +115,39 @@ print('文件读取成功，正在呼叫ai总结。。。\n')
 result=chain.invoke({'text':file_content})
 print('ai总结结果：')
 print(result.content)
+
+
+
+import streamlit as st
+import os
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+
+
+load_dotenv()
+st.set_page_config(page_title="AI 文档智能总结助手", page_icon="🤖")
+st.title("🤖 AI 文档智能总结助手")
+st.write("请上传一个 .txt 格式的文档，AI 将为你提取核心要点。")
+uploaded_file = st.file_uploader("请选择一个文本文件", type=["txt"])
+if uploaded_file is not None:
+    string_data = uploaded_file.getvalue().decode("utf-8")
+    if st.button("开始总结"):
+        with st.spinner("AI 正在拼命阅读并总结中，请稍候..."):
+            try:
+                llm = ChatOpenAI(
+                    api_key=os.getenv("DEEPSEEK_API_KEY"),
+                    base_url="https://api.deepseek.com",
+                    model="deepseek-chat"
+                )
+                prompt = ChatPromptTemplate.from_messages([
+                    ("system", "你是一个专业的文档总结助手，请用精炼的语言提取要点。"),
+                    ("user", "请帮我总结以下这段文字的要点：\n\n{text}")
+                ])
+                chain = prompt | llm
+                result = chain.invoke({"text": string_data})
+                st.success("总结完成！")
+                st.markdown("### 📝 总结结果：")
+                st.write(result.content)
+            except Exception as e:
+                st.error(f"发生错误：{e}")
