@@ -1,23 +1,28 @@
-# ai-doc-assistant
-My first AI project using LangChain
-# AI 文档智能总结助手
-！[AI 文档智能助手演示](demo.png)
+# 🤖 AI 文档智能总结助手
+
+一个基于 Python、LangChain 和 Streamlit 构建的 AI 文本摘要 Web 应用。
+
+![项目演示](demo.png)
+
+## ✨ 功能特性
+- **Web 交互界面**：基于 Streamlit 搭建，支持用户直接在浏览器上传文件并实时查看结果。
+- **智能语义分析**：接入 DeepSeek 大语言模型，实现高精度的文档摘要与要点提取。
+- **安全规范**：使用环境变量（`.env`）管理 API Key，代码中不包含任何明文密钥。
+- **模块化设计**：基于 LangChain 的 LCEL 表达式构建提示词流水线，方便后续扩展。
+
 ## 📖 项目简介
-这是一个基于 Python 和 LangChain 框架开发的 AI 文档总结工具。通过调用 DeepSeek 大语言模型 API，能够读取本地文本文件，并自动提取、总结核心要点。
+本项目最初是一个命令行脚本，现已升级为一个包含完整前后端的 Web 应用。用户只需上传一个 `.txt` 格式的文本文档，系统会调用大模型对文档进行阅读，并返回结构化的总结结果。
 
 ## 🛠️ 技术栈
-- **语言**: Python 3.13
-- **框架**: LangChain (LCEL 表达式、ChatPromptTemplate)
-- **模型**: DeepSeek API (兼容 OpenAI 接口)
-- **工具**: TextLoader 文档加载器
+- **前端/界面**：Streamlit
+- **大模型框架**：LangChain (LCEL, ChatPromptTemplate, TextLoader)
+- **大语言模型**：DeepSeek API (兼容 OpenAI 接口)
+- **环境管理**：python-dotenv
 
-## ⚙️ 核心功能
-1. 使用 `TextLoader` 读取本地 `.txt` 文件并转化为标准文档对象。
-2. 使用 `ChatPromptTemplate` 构建系统级提示词，设定 AI 为总结助手角色。
-3. 通过 LCEL 管道符 `|` 将 Prompt 与 LLM 串联成流水线。
-4. 调用大模型完成长文本的要点提炼。
+## 🚀 本地运行指南
 
-## 🚀 如何运行
-1. 安装依赖：`pip install langchain langchain-openai langchain-community`
-2. 在代码中填入你自己的 API Key。
-3. 运行 `rag_demo.py` 即可。
+**1. 克隆项目并安装依赖：**
+```bash
+git clone https://github.com/zhaokai-nice1/ai-doc-assistant.git
+cd ai-doc-assistant
+pip install -r requirements.txt
